@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Start App') {
             steps {
-                sh(script: 'docker-compose up -d')
+                sh(script: 'docker-compose up -d --publish-all')
             }
         }
         stage('Run Test') {
