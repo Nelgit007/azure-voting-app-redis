@@ -7,6 +7,11 @@ pipeline {
                 echo "$GIT_BRANCH"
             }
         }
+        stage('Shutdown docker compose') {
+            steps {
+                sh(script: 'docker-compose down -v')
+            }
+        }
         stage('Docker Build') {
             steps {
                 sh(script: 'docker-compose build')
@@ -33,7 +38,7 @@ pipeline {
     }
     post {
         always {
-            sh(script: 'docker-compose down')
+            sh(script: 'docker-compose down -v --rmi all')
         }
     }
 }
